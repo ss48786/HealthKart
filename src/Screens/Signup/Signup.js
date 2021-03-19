@@ -16,6 +16,11 @@ import navigationString from "../../constants/navigationString";
 import Button from "../../Components/Button";
 import colors from "../../styles/colors";
 import Textinput from "../../Components/Textinput";
+// import { showMessage,errorMessage } from "react-native-flash-message";
+// import validator from "../../utils/validation";
+// import apis from "../../apis";
+// import {LOGIN,SIGNUP} from "../../config/url";
+
 
 
 
@@ -25,14 +30,48 @@ export default class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-     
+     mobile:'',
     };
   }
 
   onButtonPress = () => {
     this.props.navigation.navigate(navigationString.LOGIN);
   };
-
+  isValidlogin = () => {
+    
+    
+    const {  mobile} = this.state;
+  
+   const error = validator({ phoneNumber:mobile})
+   if (error) {
+     showMessage({
+       type: "danger",
+       icon: "danger",
+       message: error
+     })
+     return false;
+   }
+  
+   console.log({  email: email, password: password,  languageCode: "EN", signupType: "APP" })
+   let dataSend = { password:password, email: email, languageCode: "EN", signupType: "APP" }
+   apis.login(dataSend)
+     .then(response => {
+       console.log(response)
+       this.props.navigation.navigate(navigationStrings.LOGIN)
+       showMessage({
+        type: "success",
+        icon: "success",
+        message: "data saved successfully"
+      })
+  
+     }).catch(error => {
+       console.log(error)
+  
+     });
+  
+  
+  };
+  
   render() {
   
     return (
@@ -42,6 +81,9 @@ export default class Signup extends Component {
               <TouchableOpacity onPress={this.onButtonPress}>
           <Text style={{fontStyle:'bold', fontSize:30, marginLeft:10 }}>Sign Up</Text>
           </TouchableOpacity>
+           {/* <TouchableOpacity onPress={this.isValidlogin}>
+          <Text style={{fontStyle:'bold', fontSize:30, marginLeft:10 }}>Sign Up</Text>
+          </TouchableOpacity> */}
 <Image  style={{height:30,width:30,marginLeft:'auto', marginRight:10, marginTop:10}} source={imagePath.cancel}/>
           </View>
           

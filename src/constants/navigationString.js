@@ -3,7 +3,9 @@ export default {
     LOGIN:'Login',
     SIGNUP:'Signup',
     HOMEPAGE:'Homepage',
-    LATESTDEALS:'Latestdeals'
+    LATESTDEALS:'Latestdeals',
+    DETAILSPAGE:'Detailspage',
+    CARTPAGE:'Cartpage'
     
    
    

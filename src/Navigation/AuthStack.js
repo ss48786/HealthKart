@@ -6,6 +6,9 @@ import navigationString from "../constants/navigationString";
 import TabRoutes from "./TabRoutes"
 import Login from "../Screens/Login/Login";
 import Signup from "../Screens/Signup/Signup";
+import Detailspage from '../Screens/Detailspage/Detailspage';
+import Cartpage from "../Screens/Cartpage/Cartpage";
+
 
 const Stack = createStackNavigator();
 
@@ -29,7 +32,20 @@ function AuthStack(Stack) {
         }}
         component={Login}
       />
-
+      <Stack.Screen
+        name={navigationString.DETAILSPAGE}
+        options={{
+          headerShown: false,
+        }}
+        component={Detailspage}
+      />
+<Stack.Screen
+        name={navigationString.CARTPAGE}
+        options={{
+          headerShown: false,
+        }}
+        component={Cartpage}
+      />
       
     </Fragment>
   );

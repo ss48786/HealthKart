@@ -1,7 +1,7 @@
 
 
 import React, { Component } from 'react';
-import Routes from './src/Navigation/Routes'
+ import Routes from './src/Navigation/Routes'
 
 import {
   SafeAreaView,
@@ -21,6 +21,8 @@ class App extends Component{
     return(
      
      <Routes/>
+    
+  
     
     )
   }

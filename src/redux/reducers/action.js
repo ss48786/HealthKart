@@ -1,17 +1,21 @@
+import reducer from './reducer';
 import store from './store';
 import types from './types';
 
 
+
 const {dispatch, getState, subscribe} = store;
 export const Details = (id) => ({
-  type: types.DETAILS,
   
-  id:  Math.random() 
+  type: types.DETAILS,
+ 
+   number:id
 });
 
 export const DELETE = (id) => ({
   type: types.DELETE,
-  id : id
+  
+  id:  Math.random() 
 });
 
 export const UPDATE = (message , description , id) => ({

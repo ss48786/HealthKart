@@ -14,8 +14,13 @@ import {
 import imagePath from "../../constants/imagePath";
   import navigationStrings from "../../constants/navigationString";
 import reducer from "../../redux/reducers/reducer";
-import store from "../../redux/reducers/store";
+
 import {Details} from '../../redux/reducers/action';
+import store from "../../redux/reducers/store";
+import navigationString from "../../constants/navigationString";
+import Cartpage from "../Cartpage/Cartpage";
+
+
 
   
   
@@ -23,15 +28,12 @@ import {Details} from '../../redux/reducers/action';
     constructor(props) {
       super(props);
       this.state = {
-        count: 0,
-      blankCartArray: [],
-      productsArray: [
-        {
+        productsArray:[{
           id: 0,
           name: "RED TAPE",
           text: "Checked Tshirt",
           image: imagePath.dp2,
-
+      
           Price: 2599,
           reducedPrice: "Rs 650",
           discount: "75%",
@@ -42,7 +44,7 @@ import {Details} from '../../redux/reducers/action';
           name: "RED TAPE",
           text: "Checked Tshirt",
           image: imagePath.dp3,
-
+      
           Price: 2599,
           reducedPrice: "Rs 650",
           discount: "75%",
@@ -53,7 +55,7 @@ import {Details} from '../../redux/reducers/action';
           name: "RED TAPE",
           text: "Checked Tshirt",
           image: imagePath.dp4,
-
+      
           Price: 2599,
           reducedPrice: "Rs 650",
           discount: "75%",
@@ -64,7 +66,7 @@ import {Details} from '../../redux/reducers/action';
           name: "RED TAPE",
           text: "Checked Tshirt",
           image: imagePath.dp5,
-
+      
           Price: 2599,
           reducedPrice: "Rs 650",
           discount: "75%",
@@ -85,7 +87,7 @@ import {Details} from '../../redux/reducers/action';
           name: "RED TAPE",
           text: "Checked shirt",
           image: imagePath.dp7,
-
+      
           Price: 2599,
           reducedPrice: "Rs 650",
           discount: "75%",
@@ -96,7 +98,7 @@ import {Details} from '../../redux/reducers/action';
           name: "RED TAPE",
           text: "Checked shirt",
           image: imagePath.dp8,
-
+      
           Price: 2599,
           reducedPrice: "Rs 650",
           discount: "75%",
@@ -107,7 +109,7 @@ import {Details} from '../../redux/reducers/action';
           name: "RED TAPE",
           text: "Checked shirt",
           image: imagePath.dp9,
-
+      
           Price: 2599,
           reducedPrice: "Rs 650",
           discount: "75%",
@@ -118,7 +120,7 @@ import {Details} from '../../redux/reducers/action';
           name: "RED TAPE",
           text: "Checked shirt",
           image: imagePath.dp10,
-
+      
           Price: 2599,
           reducedPrice: "Rs 650",
           discount: "75%",
@@ -129,7 +131,7 @@ import {Details} from '../../redux/reducers/action';
           name: "RED TAPE",
           text: "Checked shirt",
           image: imagePath.dp9,
-
+      
           Price: 2599,
           reducedPrice: "Rs 650",
           discount: "75%",
@@ -140,7 +142,7 @@ import {Details} from '../../redux/reducers/action';
           name: "RED TAPE",
           text: "Checked shirt",
           image: imagePath.dp8,
-
+      
           Price: 2599,
           reducedPrice: "Rs 650",
           discount: "75%",
@@ -175,13 +177,13 @@ import {Details} from '../../redux/reducers/action';
           reducedPrice: "Rs 650",
           discount: "75%",
           quant: 1,
-        },
-      ],
-      selectedItem: "",
+        }],
+        number:''
     };
       };
     
-  
+      check = store.subscribe(() => this.setState(({})))
+      
     onButtonPress = () => {
       this.props.navigation.navigate(navigationStrings.TAB_ROUTES);
     };
@@ -197,8 +199,38 @@ import {Details} from '../../redux/reducers/action';
       
     };
    oncheck=(id)=>{
-    this.props.navigation.navigate(navigationString.LOGIN);
+    this.props.navigation.navigate(navigationString.DETAILSPAGE);
     // store.dispatch(Details(id));
+    const{number} = this.state;
+    this.setState({
+      number:id
+    })
+    store.dispatch(Details(number))
+    console.log( store.dispatch(Details(number)))
+  
+    
+   
+   }
+//    _onItemClick=(id)=>{
+//     const {foodItemAry,newItemList}=this.state;
+//     let newfoodItemAry=[...foodItemAry];
+//     let index=newfoodItemAry.findIndex((item)=>item.id===id)
+//     dispatch({
+//       type:types.ADD_CART,
+//       payload:{newfoodItemAry, index}
+//   })
+// }
+
+
+  //  onClickCart=(id)=>{
+  //   this.props.navigation.navigate(navigationString.DETAILSPAGE);
+  //   store.dispatch(Details(id));
+
+  //  }
+
+   test=()=>{
+    this.props.navigation.navigate(navigationString.CARTPAGE);
+  
    }
     renderItem = ({item}) => {
       
@@ -215,7 +247,7 @@ import {Details} from '../../redux/reducers/action';
      <Text style={{  fontWeight: "bold", marginLeft:40 }}>
               {item.Price}
             </Text>
-          <TouchableOpacity style={styles.buttonStyle}>
+          <TouchableOpacity style={styles.buttonStyle} onPress={this.test}>
             <Text style={{ color: "#e3e3e3", fontWeight: "bold" }}>
               Click to Buy
             </Text>
@@ -259,7 +291,7 @@ import {Details} from '../../redux/reducers/action';
                 marginRight: 3,
               }}
             >
-              {count}
+              {store.getState().count}
             </Text>
           </View>
         </View>
@@ -285,7 +317,7 @@ import {Details} from '../../redux/reducers/action';
           </TouchableOpacity>
 
 <FlatList
-            data={productsArray}
+            data={productsArray} 
             showsVerticalScrollIndicator={false}
             numColumns={2}
             keyExtractor={(item) => item.id}

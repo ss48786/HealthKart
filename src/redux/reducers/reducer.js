@@ -1,3 +1,5 @@
+
+import imagePath from '../../constants/imagePath';
 import navigationString from '../../constants/navigationString';
 import types from './types';
 const INITIAL_STATE = {
@@ -152,19 +154,25 @@ const INITIAL_STATE = {
     quant: 1,
   }],
   newarray:'',
-  selecteditem:'',
+  selecteditem:'', 
+  count:0
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case types.DETAILS:
           return  {
+
             ...state , 
-            newarray : [ 
+            productsArray : [ 
               ...state.productsArray,
+               
+
               {
                 
-                
+               id:action.id
+
+               
               }
             ]
 
