@@ -13,6 +13,9 @@ import {
 import imagePath from "../../constants/imagePath";
 import navigationString from "../../constants/navigationString";
 
+import Button from "../../Components/Button";
+import Textinput from "../../Components/Textinput";
+
 
 
 export default class Login extends Component {
@@ -35,11 +38,26 @@ export default class Login extends Component {
         <View style={styles.loginScreen}>
            
          
-         <TouchableOpacity onPress={this.onButtonPress}>
-             <Text>
-                 Login
-             </Text>
-         </TouchableOpacity>
+         
+         <View style={{flexDirection:'row', justifyContent:'center'}}>
+           <Text style={{fontSize:40}}>OTP verification</Text>
+         </View>
+         <View style={{flexDirection:'row', marginLeft:30}}>
+           <Textinput/>
+           <Textinput/>
+           <Textinput/>
+           <Textinput/>
+         </View>
+         <View style={{margin:20, marginTop:50}}>
+           <Text>Enter the OTP sent to your registered email and phone number</Text>
+         </View>
+         
+         <View>
+           <Button buttonName="Verify account" onButtonPress={this.onButtonPress}/>
+         </View>
+       
+         
+         
         </View>
       </SafeAreaView>
     );

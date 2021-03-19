@@ -57,7 +57,7 @@ export default class Signup extends Component {
             <Textinput style={{}}/>
           </View>
           <View>
-            <Button buttonName="Sign Up" />
+            <Button buttonName="Sign Up" onButtonPress={this.onButtonPress} />
           </View>
           <View style={{flexDirection:'row', margin:20}}>
               <Text> By signing up you agree to our </Text>
