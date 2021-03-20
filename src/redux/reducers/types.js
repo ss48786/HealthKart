@@ -1,5 +1,5 @@
 export default {
     DETAILS:'Details',
-    DELETE:'DELETE',
+    CART:'Cart',
     UPDATE:'UPDATE'
 }

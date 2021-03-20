@@ -16,6 +16,8 @@ import imagePath from "../../constants/imagePath";
 import Button from "../../Components/Button";
 import Textinput from "../../Components/Textinput";
 import navigationString from "../../constants/navigationString";
+import store from "../../redux/reducers/store";
+
 
 
 
@@ -27,17 +29,25 @@ export default class Cartpage extends Component {
     };
   }
 
-  
+  // componentDidMount(){
+  //   store.subscribe(()=>this.setState({}))
+  // }
+
+  // const unsubscribe = store.subscribe(()=>this.setState({}))
 
   
   render() {
+    const {myarray}=store.getState();
+
+    console.log("idhr agya" , myarray) ;
+
+    const unsubscribe = store.subscribe(()=>this.setState({}))
   
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <View>
-            <Text>
-                cart page
-            </Text>
+            <Image source ={myarray[0].image}
+            /> 
         </View>
       </SafeAreaView>
     );

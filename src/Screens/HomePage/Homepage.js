@@ -15,7 +15,7 @@ import imagePath from "../../constants/imagePath";
   import navigationStrings from "../../constants/navigationString";
 import reducer from "../../redux/reducers/reducer";
 
-import {Details} from '../../redux/reducers/action';
+import {Details,Cart} from '../../redux/reducers/action';
 import store from "../../redux/reducers/store";
 import navigationString from "../../constants/navigationString";
 import Cartpage from "../Cartpage/Cartpage";
@@ -178,7 +178,7 @@ import Cartpage from "../Cartpage/Cartpage";
           discount: "75%",
           quant: 1,
         }],
-        number:''
+        
     };
       };
     
@@ -187,29 +187,16 @@ import Cartpage from "../Cartpage/Cartpage";
     onButtonPress = () => {
       this.props.navigation.navigate(navigationStrings.TAB_ROUTES);
     };
-    _onNextScreen = () => {
-      alert("hello")
-      // const { navigation } = this.props;
-      // const { productsArray } = this.state;
-      // let newArray = [...productsArray];
-      // navigation.navigate(navigationStrings.SHIRTDETAILS, {
-      //   selectedItem: newArray[id],
-         
-      // });
-      
-    };
-   oncheck=(id)=>{
-    this.props.navigation.navigate(navigationString.DETAILSPAGE);
-    // store.dispatch(Details(id));
-    const{number} = this.state;
-    this.setState({
-      number:id
-    })
-    store.dispatch(Details(number))
-    console.log( store.dispatch(Details(number)))
-  
     
+   oncheck=(id)=>{
+     const {productsArray} =this.state;
+     
+    this.props.navigation.navigate(navigationString.DETAILSPAGE);
+    let newarray = [...productsArray];
+    // alert(JSON.stringify(newarray[id]));
    
+    store.dispatch(Details(newarray[id]))
+    
    }
 //    _onItemClick=(id)=>{
 //     const {foodItemAry,newItemList}=this.state;
@@ -228,8 +215,16 @@ import Cartpage from "../Cartpage/Cartpage";
 
   //  }
 
-   test=()=>{
+   test=(id)=>{
     this.props.navigation.navigate(navigationString.CARTPAGE);
+    const{productsArray} = this.state;
+    let cartarray =[...productsArray];
+    // alert(JSON.stringify(cartarray[id]));
+    let index = cartarray.findIndex((item)=>item.id===id);
+    store.dispatch(Cart(cartarray , index));
+    // store.dispatch(Cart());
+
+
   
    }
     renderItem = ({item}) => {
@@ -247,7 +242,7 @@ import Cartpage from "../Cartpage/Cartpage";
      <Text style={{  fontWeight: "bold", marginLeft:40 }}>
               {item.Price}
             </Text>
-          <TouchableOpacity style={styles.buttonStyle} onPress={this.test}>
+          <TouchableOpacity style={styles.buttonStyle} onPress={()=>this.test(item.id)}>
             <Text style={{ color: "#e3e3e3", fontWeight: "bold" }}>
               Click to Buy
             </Text>
@@ -291,7 +286,7 @@ import Cartpage from "../Cartpage/Cartpage";
                 marginRight: 3,
               }}
             >
-              {store.getState().count}
+           
             </Text>
           </View>
         </View>
@@ -309,7 +304,7 @@ import Cartpage from "../Cartpage/Cartpage";
         </ScrollView>
 
         <ScrollView>
-          <TouchableOpacity onPress={this._onNextScreen}>
+          <TouchableOpacity >
           <Image
             style={{ height: 300, width: 340, margin: 10 }}
             source={imagePath.w1}

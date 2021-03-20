@@ -5,18 +5,19 @@ import types from './types';
 
 
 const {dispatch, getState, subscribe} = store;
-export const Details = (id) => ({
-  
-  type: types.DETAILS,
+export const Details = (newAry) => ({
  
-   number:id
+  type: types.DETAILS,
+  payload:{newAry}
+ 
+});
+export const Cart = (cartarray,index) => ({
+  type: types.CART,
+  payload:{cartarray,index}
+  
+  
 });
 
-export const DELETE = (id) => ({
-  type: types.DELETE,
-  
-  id:  Math.random() 
-});
 
 export const UPDATE = (message , description , id) => ({
   type: types.UPDATE,

@@ -8,13 +8,15 @@ import {
   View,
   StyleSheet,
   SafeAreaView,
-  Image
+  Image,
+  FlatList
 } from "react-native";
 import imagePath from "../../constants/imagePath";
 import navigationString from "../../constants/navigationString";
 
 import Button from "../../Components/Button";
 import Textinput from "../../Components/Textinput";
+import store from "../../redux/reducers/store";
 
 
 
@@ -22,21 +24,60 @@ export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-     
+  
     };
   }
 
-  
+  componentDidMount(){
+    store.subscribe(()=>this.setState({}))
+  }
 
+
+  renderItem = ({item}) => {
+      
+    return (
+      <View style={{flex:1}}>
+        <Text>hvhv</Text>
+ 
+      <View style={{ justifyContent: "space-between", margin: 10 }}>
+        <Image style={styles.card} source={item.image} />
+      </View>
+
+
+      <View>
+        
+   <Text style={{  fontWeight: "bold", marginLeft:40 }}>
+            {item.name}
+          </Text>
+      
+          <Text style={{ color: "#e3e3e3", fontWeight: "bold" }}>
+            Click to Buy
+          </Text>
+
+      
+        
+     
+   
+    </View>
+    </View>
+    );
+  };
   
   render() {
   
+    const {newAry}=store.getState();
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <View>
-            <Text>
-                Details
-            </Text>
+        <Image style={styles.card} source={newAry.image} />
+        <FlatList
+            data={newAry} 
+            showsVerticalScrollIndicator={false}
+            numColumns={2}
+            keyExtractor={(item) => item.id}
+            ItemSeparatorComponent={() => <View style={{ marginBottom: 10 }} />}
+            renderItem={this.renderItem}
+         /> 
         </View>
       </SafeAreaView>
     );
@@ -99,5 +140,23 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     margin: 10,
+  },
+  card: {
+    height: 300,
+    width: 160,
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
+    borderTopRightRadius: 10,
+    borderBottomRightRadius: 10,
+  },
+  buttonStyle: {
+    backgroundColor: "#f2288c",
+    padding: 10,
+    width: 100,
+    borderRadius: 8,
+    flexDirection: "row",
+    justifyContent: "center",
+   marginLeft:40,
+   marginTop:10
   },
 });
