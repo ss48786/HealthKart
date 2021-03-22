@@ -1,6 +1,3 @@
-
-
-
 import React, { Component } from "react";
 import {
   Text,
@@ -12,14 +9,22 @@ import {
 } from "react-native";
 
 import imagePath from "../../constants/imagePath";
-import navigationString from "../../constants/navigationString";
+
 import Button from "../../Components/Button";
 import colors from "../../styles/colors";
 import Textinput from "../../Components/Textinput";
-// import { showMessage,errorMessage } from "react-native-flash-message";
-// import validator from "../../utils/validation";
-// import apis from "../../apis";
-// import {LOGIN,SIGNUP} from "../../config/url";
+import { showMessage, errorMessage} from "react-native-flash-message";
+import validator from "../../utils/validation"
+//  import apis from "../../apis";
+// import { LOGIN, SIGNUP } from "../../config/url";
+import Homepage from "../HomePage/Homepage";
+import navigationString from "../../constants/navigationString";
+import TabRoutes from "../../Navigation/TabRoutes";
+import actions from "../../redux/actions"
+
+import { LOGIN, SIGNUP } from "../../config/url";
+
+
 
 
 
@@ -30,19 +35,32 @@ export default class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-     mobile:'',
+      phoneNumber:'',
+      firstName:'',
+      email:''
+    
     };
   }
 
-  onButtonPress = () => {
-    this.props.navigation.navigate(navigationString.LOGIN);
-  };
+  // onButtonPress = () => {
+  //   this.props.navigation.navigate(navigationString.LOGIN);
+  // };
+  changeName(key) {
+
+    return (value) => {
+      this.setState({
+        [key]: value
+      })
+    }
+
+  }
+
   isValidlogin = () => {
     
-    
-    const {  mobile} = this.state;
+ 
+    const {  phoneNumber,firstName,email} = this.state;
   
-   const error = validator({ phoneNumber:mobile})
+   const error = validator({ phoneNumber:phoneNumber,firstName:firstName,email:email})
    if (error) {
      showMessage({
        type: "danger",
@@ -52,12 +70,15 @@ export default class Signup extends Component {
      return false;
    }
   
-   console.log({  email: email, password: password,  languageCode: "EN", signupType: "APP" })
-   let dataSend = { password:password, email: email, languageCode: "EN", signupType: "APP" }
-   apis.login(dataSend)
+  //  console.log({   languageCode: "EN", signupType: "APP", phoneNumber:phoneNumber })
+  // alert(JSON.stringify(phoneNumber))
+   let dataSend = {  languageCode: "EN", signupType: "APP",name:firstName,email:email }
+  //  alert(JSON.stringify(dataSend))
+  console.log("datasend")
+   actions.signup(dataSend)
      .then(response => {
        console.log(response)
-       this.props.navigation.navigate(navigationStrings.LOGIN)
+        this.props.navigation.navigate(navigationString.HOMEPAGE)
        showMessage({
         type: "success",
         icon: "success",
@@ -78,7 +99,7 @@ export default class Signup extends Component {
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.loginScreen}>
         <View style={{flexDirection:'row',marginBottom:10}}>
-              <TouchableOpacity onPress={this.onButtonPress}>
+              <TouchableOpacity onPress={this.isValidlogin}>
           <Text style={{fontStyle:'bold', fontSize:30, marginLeft:10 }}>Sign Up</Text>
           </TouchableOpacity>
            {/* <TouchableOpacity onPress={this.isValidlogin}>
@@ -96,10 +117,23 @@ export default class Signup extends Component {
               <Text style={{color:"#36b6b0", margin:20}}>Mobile number</Text>
           </View>
           <View>
-            <Textinput style={{}}/>
+            <Textinput 
+            placeholder="Mobile number"
+            
+            onChangeText={this.changeName("phoneNumber")}/>
           </View>
           <View>
-            <Button buttonName="Sign Up" onButtonPress={this.onButtonPress} />
+            <Textinput 
+            placeholder="Name"
+            
+            onChangeText={this.changeName("firstName")}/>
+             <Textinput 
+            placeholder="email"
+            
+            onChangeText={this.changeName("email")}/>
+          </View>
+          <View>
+            <Button buttonName="Sign Up" onButtonPress={this.isValidlogin} />
           </View>
           <View style={{flexDirection:'row', margin:20}}>
               <Text> By signing up you agree to our </Text>
@@ -120,7 +154,7 @@ export default class Signup extends Component {
           </View>
           <View style={{flexDirection:"row",justifyContent:'center'}}>
             <Text>Already have an account ?</Text>
-            <TouchableOpacity onPress={this.onButtonPress}>
+            <TouchableOpacity onPress={this.isValidlogin}>
             <Text style={{color:colors.textcolor, marginLeft:10}}>Log In</Text>
             </TouchableOpacity>
           </View>

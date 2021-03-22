@@ -45,9 +45,14 @@ export default class Cartpage extends Component {
   
     return (
       <SafeAreaView style={{ flex: 1 }}>
-        <View>
+        {/* <View>
             <Image source ={myarray[0].image}
             /> 
+        </View> */}
+        <View>
+          <Text>
+            cartpageeeeeee
+          </Text>
         </View>
       </SafeAreaView>
     );

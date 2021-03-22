@@ -1,5 +1,7 @@
+import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 
 
 export async function getHeaders() {
@@ -114,7 +116,7 @@ export async function apiReq(
 }
 
 export function apiPost(endPoint, data, headers = {}) {
-  // console.log(data)
+  console.log(data)
   return apiReq(endPoint, data, 'post', headers);
 }
 

@@ -19,12 +19,15 @@ import {Details,Cart} from '../../redux/reducers/action';
 import store from "../../redux/reducers/store";
 import navigationString from "../../constants/navigationString";
 import Cartpage from "../Cartpage/Cartpage";
+import { connect } from "react-redux";
+import types from "../../redux/reducers/types";
+const{dispatch} =store;
 
 
 
   
   
-  export default class Homepage extends Component {
+   class Homepage extends Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -182,7 +185,7 @@ import Cartpage from "../Cartpage/Cartpage";
     };
       };
     
-      check = store.subscribe(() => this.setState(({})))
+      // check = store.subscribe(() => this.setState(({})))
       
     onButtonPress = () => {
       this.props.navigation.navigate(navigationStrings.TAB_ROUTES);
@@ -193,9 +196,14 @@ import Cartpage from "../Cartpage/Cartpage";
      
     this.props.navigation.navigate(navigationString.DETAILSPAGE);
     let newarray = [...productsArray];
+    let newObj=newarray[id]
     // alert(JSON.stringify(newarray[id]));
    
-    store.dispatch(Details(newarray[id]))
+    // store.dispatch(Details(newarray[id]))
+    dispatch({
+      type:types.DETAILS,
+      payload:{newObj}
+    })
     
    }
 //    _onItemClick=(id)=>{
@@ -215,18 +223,18 @@ import Cartpage from "../Cartpage/Cartpage";
 
   //  }
 
-   test=(id)=>{
-    this.props.navigation.navigate(navigationString.CARTPAGE);
-    const{productsArray} = this.state;
-    let cartarray =[...productsArray];
-    // alert(JSON.stringify(cartarray[id]));
-    let index = cartarray.findIndex((item)=>item.id===id);
-    store.dispatch(Cart(cartarray , index));
-    // store.dispatch(Cart());
+  //  test=(id)=>{
+  //   this.props.navigation.navigate(navigationString.CARTPAGE);
+  //   const{productsArray} = this.state;
+  //   let cartarray =[...productsArray];
+  //   // alert(JSON.stringify(cartarray[id]));
+  //   let index = cartarray.findIndex((item)=>item.id===id);
+  //   store.dispatch(Cart(cartarray , index));
+  //   // store.dispatch(Cart());
 
 
   
-   }
+  //  }
     renderItem = ({item}) => {
       
       return (
@@ -330,6 +338,14 @@ import Cartpage from "../Cartpage/Cartpage";
     }
   }
   
+  const mapStateToProps=state=>{
+    return{
+      newAry:state.newAry
+    }
+
+    }
+  export default connect(mapStateToProps)(Homepage);
+
   const styles = StyleSheet.create({
     loginScreen: {
       flex: 1,

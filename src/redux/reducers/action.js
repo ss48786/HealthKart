@@ -11,12 +11,12 @@ export const Details = (newAry) => ({
   payload:{newAry}
  
 });
-export const Cart = (cartarray,index) => ({
-  type: types.CART,
-  payload:{cartarray,index}
+// export const Cart = (cartarray,index) => ({
+//   type: types.CART,
+//   payload:{cartarray,index}
   
   
-});
+// });
 
 
 export const UPDATE = (message , description , id) => ({

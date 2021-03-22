@@ -11,13 +11,15 @@ import {
 } from "react-native";
 import colors from "../styles/colors";
 
-
 export default function Textinput(props) {
-    const { style} = props;
+    const { style, placeholder, onChangeText} = props;
  
   return (
    <View>
-       <TextInput style={styles.textinput}/>
+       <TextInput style={styles.textinput}
+     placeholder={placeholder}
+     onChangeText={onChangeText}
+       />
    </View>
   );
 }

@@ -12,9 +12,9 @@ const INITIAL_STATE = {
 const reducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case types.DETAILS:
-          const {newAry} =action.payload;
-          //  alert(JSON.stringify(newAry))
-          return {...state, newAry}
+          const {newObj} =action.payload;
+          //  alert(JSON.stringify(newObj))
+          return {...state, newObj}
 
         case types.CART:
           const {cartarray,index}=action.payload;
@@ -30,6 +30,11 @@ const reducer = (state = INITIAL_STATE, action) => {
            };
            
            case types.EDIT:
+           return {
+              ...state, count: state.count - 1,
+           };
+
+           case types.LOGGED_IN:
            return {
               ...state, count: state.count - 1,
            };

@@ -1,6 +1,7 @@
 
-import { LOGIN, SIGNUP } from '../config/url';
-import { apiDelete, apiGet, apiPost, apiPut, setUserData } from '../utils/Utils';
+import { LOGIN, SIGNUP } from '../../config/url';
+
+import { apiDelete, apiGet, apiPost, apiPut, setUserData } from '../../utils/Utils';
 
 
 

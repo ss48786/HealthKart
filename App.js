@@ -1,7 +1,9 @@
 
 
 import React, { Component } from 'react';
- import Routes from './src/Navigation/Routes'
+ import Routes from './src/Navigation/Routes';
+ import FlashMessage from "react-native-flash-message";
+
 
 import {
   SafeAreaView,
@@ -12,18 +14,46 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import store from './src/redux/reducers/store';
+import { Provider } from 'react-redux';
+import { getUserData } from './src/utils/Utils';
+
+
+
 
 
 
 
 class App extends Component{
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      isLoggedin: false
+    }
+  }
+  componentDidMount() {
+
+    getUserData().then(res => {
+      if (res) {
+        this.setState({
+          isLoggedin: true
+        })
+      }
+    }
+    )
+
+  }
+
   render(){
     return(
-     
+    
+     <Provider store ={store}>
      <Routes/>
-    
-  
-    
+     <FlashMessage position="top" />
+     </Provider>
+   
+  //  <View><Text>hkvhggg</Text></View>
     )
   }
 }

@@ -17,10 +17,13 @@ import navigationString from "../../constants/navigationString";
 import Button from "../../Components/Button";
 import Textinput from "../../Components/Textinput";
 import store from "../../redux/reducers/store";
+import { types } from "@babel/core";
+import { connect } from "react-redux";
+const{dispatch} = store;
 
 
 
-export default class Login extends Component {
+   class Detailspage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,9 +31,10 @@ export default class Login extends Component {
     };
   }
 
-  componentDidMount(){
-    store.subscribe(()=>this.setState({}))
-  }
+  
+  // componentDidMount(){
+  //   store.subscribe(()=>this.setState({}))
+  // }
 
 
   renderItem = ({item}) => {
@@ -40,7 +44,7 @@ export default class Login extends Component {
         <Text>hvhv</Text>
  
       <View style={{ justifyContent: "space-between", margin: 10 }}>
-        <Image style={styles.card} source={item.image} />
+        {/* <Image style={styles.card} source={item.image} /> */}
       </View>
 
 
@@ -65,13 +69,14 @@ export default class Login extends Component {
   
   render() {
   
-    const {newAry}=store.getState();
+    const {newObj}=this.props;
+    // alert(JSON.stringify(newObj))
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <View>
-        <Image style={styles.card} source={newAry.image} />
+        <Image style={styles.card} source={newObj.image} />
         <FlatList
-            data={newAry} 
+            data={newObj} 
             showsVerticalScrollIndicator={false}
             numColumns={2}
             keyExtractor={(item) => item.id}
@@ -83,6 +88,16 @@ export default class Login extends Component {
     );
   }
 }
+
+const mapStateToProps = state =>{
+  return{
+    newObj:state.newObj
+  }
+
+  }
+
+  export default connect(mapStateToProps)(Detailspage);
+  
 
 const styles = StyleSheet.create({
   loginScreen: {
